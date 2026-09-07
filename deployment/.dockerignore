@@ -1,0 +1,5 @@
+.env
+*.log
+set-bailian-key.sh
+app/**/__pycache__/
+app/**/*.pyc

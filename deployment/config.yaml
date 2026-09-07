@@ -1,0 +1,13 @@
+# 阿里云百炼通过 OpenAI 兼容接口接入 LiteLLM。
+# 密钥只放在 .env 的 DASHSCOPE_API_KEY 中，不要写入本文件。
+model: "openai/qwen-plus"
+api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+
+# 大型工具输出优先交给更便宜的模型摘要。
+fast_model: "openai/qwen-turbo"
+
+# 服务器只有 2C / 1.6 GiB；学习阶段将自主工具调用限制在 30 步。
+max_steps: 30
+
+# 该环境尚未挂载 Kubernetes 凭据，避免误认为有生产集群访问权限。
+cluster_name: "opspilot-learning-server"

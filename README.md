@@ -1,0 +1,44 @@
+# OpsPilot HolmesGPT 复现实验室
+
+这个目录保存 HolmesGPT 的部署覆盖、辅助脚本和中文学习文档；上游源码位于相邻的 `../holmesgpt/`。
+
+## 当前布局
+
+```text
+ai-agent-OpsPilot/
+├── holmesgpt/                 # HolmesGPT 上游源码（sparse checkout）
+└── opspilot-lab/
+    ├── deployment/            # 远程 Docker Compose 配置
+    ├── docs/LEARNING_GUIDE.md # 中文学习与复现手册
+    └── scripts/               # 本地、远程运维脚本
+```
+
+## 快速入口
+
+```bash
+# 当前终端统一指定远程服务器，真实 IP 不提交到 Git
+export OPSPILOT_SERVER=203.0.113.10  # 替换为你的服务器 IP
+
+# 本机源码环境
+conda activate holmesgpt
+cd ../holmesgpt
+holmes --help
+
+# 从本机源码打包，在远程服务器构建并启动 Docker 镜像
+cd ../opspilot-lab
+./scripts/deploy-remote.sh
+
+# 建立到远程 API 的安全隧道
+./scripts/tunnel.sh
+
+# 另开终端检查远程服务
+./scripts/remote-status.sh
+
+# 安全写入百炼 API Key（交互输入，不回显）
+./scripts/configure-bailian-key.sh
+
+# 模型端到端冒烟测试
+./scripts/remote-smoke-test.sh
+```
+
+完整说明见 [学习手册](docs/LEARNING_GUIDE.md)。

@@ -1,0 +1,42 @@
+name: opspilot-holmes
+
+services:
+  holmes:
+    image: opspilot-holmes:5e983c1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opspilot-holmes
+    # 资源较小的学习机避免异常时无限重启拖垮 SSH。
+    restart: "on-failure:3"
+    ports:
+      - "127.0.0.1:5050:5050"
+    env_file:
+      - .env
+    environment:
+      OPENAI_API_KEY: "${DASHSCOPE_API_KEY:-replace-me}"
+      OPENAI_API_BASE: "${BAILIAN_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}"
+      HOLMES_API_KEY: "${HOLMES_API_KEY:-}"
+      TZ: "${TZ:-Asia/Shanghai}"
+    volumes:
+      - ./config.yaml:/root/.holmes/config.yaml:ro
+      - holmes_tool_results:/tmp/holmes:rw
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:5050/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    mem_limit: 768m
+    mem_reservation: 256m
+    cpus: 1.25
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "3"
+
+volumes:
+  holmes_tool_results:
