@@ -16,6 +16,8 @@ services:
     environment:
       OPENAI_API_KEY: "${DASHSCOPE_API_KEY:-replace-me}"
       OPENAI_API_BASE: "${BAILIAN_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}"
+      # qwen-plus 允许的 max_tokens 上限低于 HolmesGPT 对未知模型的 64K 默认值。
+      OVERRIDE_MAX_OUTPUT_TOKEN: "${HOLMES_MAX_OUTPUT_TOKENS:-8192}"
       HOLMES_API_KEY: "${HOLMES_API_KEY:-}"
       TZ: "${TZ:-Asia/Shanghai}"
     volumes:

@@ -146,7 +146,15 @@ cd "$PROJECT_ROOT/opspilot-lab"
 
 脚本会静默读取密钥，更新服务器 `/opt/opspilot-holmes/.env`，权限设为 `600`，随后重新创建容器。
 
+也可以编辑已被 Git 忽略的 `deployment/.env`，填入 `DASHSCOPE_API_KEY` 后，再通过安全脚本或标准输入写入服务器。不要直接上传整个本地 `.env`，否则可能覆盖服务器自动生成的 `HOLMES_API_KEY`。
+
+```bash
+./scripts/configure-bailian-key.sh --env-file deployment/.env
+```
+
 如果你的 Key 属于新加坡、美国或专属业务空间，必须同步修改 `BAILIAN_BASE_URL`，Key 和 Endpoint 不可跨地域使用。
+
+HolmesGPT 当前无法从 LiteLLM 能力表识别 `openai/qwen-plus`，会回退到 64K 输出预算；百炼接口拒绝超过 32768 的 `max_tokens`。部署文件因此设置 `OVERRIDE_MAX_OUTPUT_TOKEN=8192`。这既满足诊断报告需要，也能限制延迟和费用。
 
 ### 3.3 验证模型
 
@@ -154,7 +162,7 @@ cd "$PROJECT_ROOT/opspilot-lab"
 ./scripts/remote-smoke-test.sh
 ```
 
-通过标准：`readyz` 成功，并返回“HolmesGPT 百炼模型连接成功”。如果出现 401，优先检查 API Key 与 Endpoint 地域是否匹配；如果模型能回答但不调用工具，确认所选模型支持 function calling。
+通过标准：`readyz` 成功，并返回 `HOLMES_BAILIAN_OK`。如果出现 401，优先检查 API Key 与 Endpoint 地域是否匹配；如果模型能回答但不调用工具，确认所选模型支持 function calling。
 
 ## 4. 先理解整体请求链路
 
@@ -570,10 +578,19 @@ ssh "root@${OPSPILOT_SERVER}" 'cd /opt/opspilot-holmes && docker compose down'
 
 当前服务器适合 HolmesGPT API 与轻量测试，不适合运行 vLLM：1.6 GiB RAM、无 GPU，即使增加 Swap 也只能避免 OOM，不能提供合理推理性能。后续 vLLM 应放在有 NVIDIA GPU、至少 16～24 GiB 显存的机器；当前服务器继续承担 FastAPI、Agent 编排和 MCP Gateway。
 
+### 已验收的复现基线（2026-09-08）
+
+- `healthz` 与 `readyz` 均返回 HTTP 200。
+- 百炼 `qwen-plus` 非流式调用返回 `HOLMES_BAILIAN_OK`。
+- SSE 流式调用返回 `HOLMES_SSE_OK` 和完整事件序列。
+- `OVERRIDE_MAX_OUTPUT_TOKEN=8192` 生效，解决百炼拒绝 64K `max_tokens` 的兼容问题。
+- API 仅绑定远程 `127.0.0.1:5050`，本机通过 SSH 隧道访问；无密钥请求返回 HTTP 401。
+- 容器限制 768 MiB，重启策略为 `on-failure:3`；验收时未发生 OOM 或容器重启。
+- Docker 镜像已清理 macOS `._*` 元数据，工具集定时刷新不再发生 UTF-8 解析错误。
+
 推荐下一步按这个顺序：
 
-1. 配置百炼 Key并完成模型冒烟测试。
-2. 完成第一周源码调用链笔记。
-3. 新建只读 systemd MCP/Toolset。
-4. 部署独立 Kind/K3s 测试环境，不接生产集群。
-5. 开始 LangGraph 版 OpsPilot 重构。
+1. 完成第一周源码调用链笔记。
+2. 新建只读 systemd MCP/Toolset。
+3. 部署独立 Kind/K3s 测试环境，不接生产集群。
+4. 开始 LangGraph 版 OpsPilot 重构。

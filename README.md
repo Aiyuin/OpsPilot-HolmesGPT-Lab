@@ -37,8 +37,14 @@ cd ../opspilot-lab
 # 安全写入百炼 API Key（交互输入，不回显）
 ./scripts/configure-bailian-key.sh
 
+# 或从被 Git 忽略的本地文件读取，只提取 DASHSCOPE_API_KEY
+./scripts/configure-bailian-key.sh --env-file deployment/.env
+
 # 模型端到端冒烟测试
 ./scripts/remote-smoke-test.sh
+
+# SSE 流式链路测试
+./scripts/remote-sse-test.sh
 ```
 
 完整说明见 [学习手册](docs/LEARNING_GUIDE.md)。

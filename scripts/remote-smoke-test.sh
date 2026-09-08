@@ -14,6 +14,7 @@ ssh -o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=2 \
   curl --connect-timeout 5 --max-time 180 -fsS -X POST http://127.0.0.1:5050/api/chat \
     -H "Content-Type: application/json" \
     -H "X-API-Key: ${api_key}" \
-    --data-binary '{"ask":"请只回答：HolmesGPT 百炼模型连接成功","stream":false}'
+    --data-binary "{\"ask\":\"Reply exactly: HOLMES_BAILIAN_OK\",\"stream\":false}" \
+    | jq "{analysis, usage: .metadata.usage, max_output_tokens: .metadata.max_output_tokens}"
   printf "\n"
 '
