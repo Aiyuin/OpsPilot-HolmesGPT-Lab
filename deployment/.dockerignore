@@ -1,5 +1,7 @@
 .env
 *.log
 set-bailian-key.sh
+**/._*
+.DS_Store
 app/**/__pycache__/
 app/**/*.pyc

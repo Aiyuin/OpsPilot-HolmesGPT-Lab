@@ -22,6 +22,8 @@ cp "${deployment_dir}/docker-compose.yml" \
    "${stage_dir}/"
 cp -R "${source_dir}/holmes" "${stage_dir}/app/holmes"
 cp "${source_dir}/server.py" "${source_dir}/holmes_cli.py" "${stage_dir}/app/"
+# COPYFILE_DISABLE 对不同版本的 cp 行为并不完全一致，显式移除 AppleDouble。
+find "${stage_dir}" -name '._*' -type f -delete
 
 tar --no-xattrs -C "${stage_dir}" -czf - . | \
   ssh "${user}@${server}" '

@@ -66,7 +66,10 @@ COPY app/holmes /app/holmes
 COPY app/server.py /app/server.py
 COPY app/holmes_cli.py /app/holmes_cli.py
 
-RUN git config --global core.symlinks false
+# macOS 复制目录时可能生成 AppleDouble（._*）元数据文件。HolmesGPT 会把
+# 其中以 .yaml 结尾的文件当作工具集解析，因此在镜像中做最后一道清理。
+RUN find /app -name '._*' -type f -delete \
+    && git config --global core.symlinks false
 
 EXPOSE 5050
 ENTRYPOINT ["python", "-u", "server.py"]
