@@ -1,0 +1,6 @@
+# 数据处理与论文绘图环境；不要安装进 HolmesGPT 运行环境。
+pandas>=2.2,<3
+scipy>=1.13,<2
+matplotlib>=3.9,<4
+seaborn>=0.13,<1
+tabulate>=0.9,<1

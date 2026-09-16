@@ -1,3 +1,11 @@
 .env
 *.log
 .DS_Store
+
+# 第三章实验原始输出可能包含完整模型回答和大量 pytest 日志；本地保留，
+# 仓库只提交元数据、汇总表、绘图脚本和论文可引用结果。
+experiments/chapter3/results/raw/*
+!experiments/chapter3/results/raw/.gitkeep
+experiments/chapter3/.matplotlib/
+__pycache__/
+*.py[cod]

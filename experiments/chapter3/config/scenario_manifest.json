@@ -1,0 +1,38 @@
+[
+  {
+    "scenario_id": "09_crashpod",
+    "category": "configuration",
+    "prompt": "What is the issue with payment-processing-worker?",
+    "keyword_groups": [["DEPLOY_ENV"], ["missing", "undefined", "缺失", "未定义"]]
+  },
+  {
+    "scenario_id": "10_image_pull_backoff",
+    "category": "image",
+    "prompt": "What is the issue with customer-relations-webapp?",
+    "keyword_groups": [["yourcompany/crw:latest"], ["pull", "拉取"]]
+  },
+  {
+    "scenario_id": "15_failed_readiness_probe",
+    "category": "probe",
+    "prompt": "What is the issue with search-engine pod?",
+    "keyword_groups": [["readiness", "就绪"], ["probe", "探针"]]
+  },
+  {
+    "scenario_id": "17_oom_kill",
+    "category": "resource",
+    "prompt": "What is the issue with analytics-exporter-fast in namespace app-17?",
+    "keyword_groups": [["OOMKilled", "OOM", "内存溢出"]]
+  },
+  {
+    "scenario_id": "80_pvc_storage_class_mismatch",
+    "category": "storage",
+    "prompt": "Why is the database not running in namespace app-80?",
+    "keyword_groups": [["fast-ssd"], ["StorageClass", "storage class", "存储类"], ["not found", "doesn't exist", "不存在"]]
+  },
+  {
+    "scenario_id": "176_network_policy_blocking_traffic_no_skills",
+    "category": "network",
+    "prompt": "Why is the frontend getting timeouts connecting to backend in namespace app-176?",
+    "keyword_groups": [["NetworkPolicy", "Network Policy", "网络策略"], ["tier"], ["backend"], ["frontend"]]
+  }
+]

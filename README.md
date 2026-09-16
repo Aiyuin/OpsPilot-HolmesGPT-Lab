@@ -48,3 +48,9 @@ cd ../opspilot-lab
 ```
 
 完整说明见 [学习手册](docs/LEARNING_GUIDE.md)。
+
+## Docker 放在哪里
+
+- **正常开发/学习：** 本机只需要 Conda 与 HolmesGPT 源码，不需要启动 Docker。
+- **服务部署：** Docker Compose 运行在远程服务器，本机通过 SSH 隧道访问 API。
+- **论文故障注入（可选）：** `experiments/chapter3` 可临时使用本机 Docker Desktop + Kind；它只用于隔离 Kubernetes 实验，不参与远程服务部署。不做论文实验时可以完全关闭 Docker Desktop。

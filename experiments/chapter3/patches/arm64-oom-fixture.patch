@@ -1,0 +1,29 @@
+diff --git a/tests/llm/fixtures/test_ask_holmes/17_oom_kill/fast_oom_deployment.yaml b/tests/llm/fixtures/test_ask_holmes/17_oom_kill/fast_oom_deployment.yaml
+--- a/tests/llm/fixtures/test_ask_holmes/17_oom_kill/fast_oom_deployment.yaml
++++ b/tests/llm/fixtures/test_ask_holmes/17_oom_kill/fast_oom_deployment.yaml
+@@ -14,19 +14,17 @@ spec:
+     spec:
+       containers:
+       - name: memory-eater
+-        image: us-central1-docker.pkg.dev/genuine-flight-317411/devel/memory-eater:1.0
++        image: python:3.12-alpine
+         imagePullPolicy: Always
++        command: ["python", "-c"]
+         args:
+-        - 80Mi
+-        - "0"
+-        - 100Mi
+-        - "10" # +10Mi per second. Will die after 2 seconds if limit is 100Mi
+-        - "1"
++        - |
++          chunks = []
++          while True:
++              chunks.append(bytearray(10 * 1024 * 1024))
+         resources:
+           limits:
+             memory: 100Mi
+           requests:
+             memory: 100Mi
+       restartPolicy: Always
+-      nodeSelector:
+-        kubernetes.io/arch: amd64

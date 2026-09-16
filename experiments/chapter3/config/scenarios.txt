@@ -1,0 +1,8 @@
+# 第三章核心 Kubernetes 故障场景。每行是 pytest -k 可识别的 fixture id。
+# 选取覆盖配置、镜像、探针、资源、存储、网络六类根因的场景。
+09_crashpod
+10_image_pull_backoff
+15_failed_readiness_probe
+17_oom_kill
+80_pvc_storage_class_mismatch
+176_network_policy_blocking_traffic_no_skills

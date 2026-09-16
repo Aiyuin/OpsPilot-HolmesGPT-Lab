@@ -1,0 +1,7 @@
+experiment_id,question,variant,scenarios,repetitions,primary_metrics
+E1,RQ1 工具增强是否提高诊断正确率,tool_agent,6,10,accuracy;termination_rate
+E1-B0,RQ1 无工具基线表现如何,direct_llm,6,10,accuracy
+E2,RQ2 不同故障类型下是否稳健,tool_agent,6,10,accuracy_by_category
+E3,RQ3 推理预算对效果和成本的影响,max_steps_3_8_30,6,10,accuracy;latency;tokens;tool_calls
+E4,RQ4 工具不可用时是否能降级,tool_failure_injection,6,10,degraded_completion;unsupported_claim_rate
+E5,RQ5 系统开销是否可接受,tool_agent,6,10,p50_latency;p95_latency;tokens;memory

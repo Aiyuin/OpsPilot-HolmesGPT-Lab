@@ -1,0 +1,2 @@
+run_id,phase,variant,scenario_id,model,env_config,outcome,correctness,duration_seconds,holmes_duration_seconds,llm_calls,tool_calls,total_tokens,prompt_tokens,completion_tokens,cached_tokens,cost,error_type,error_message,nodeid
+tool_agent_pilot-20260916-160320,pilot,tool_agent_pilot,17_oom_kill,openai/qwen-plus,default,incomplete,0,,,,,0,0,0,,0,MissingCallReport,pytest report has no call phase; the run was interrupted or the worker crashed,tests/llm/test_ask_holmes.py::test_ask_holmes[17_oom_kill-openai/qwen-plus-default]

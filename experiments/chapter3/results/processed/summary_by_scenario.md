@@ -1,0 +1,8 @@
+| variant    | scenario_id                                   |   n |   correct |   accuracy |   wilson95_low |   wilson95_high |   latency_p50_s |   latency_p95_s |   tokens_median |   tool_calls_median |
+|:-----------|:----------------------------------------------|----:|----------:|-----------:|---------------:|----------------:|----------------:|----------------:|----------------:|--------------------:|
+| direct_llm | 09_crashpod                                   |  10 |         0 |        0   |          0     |           0.278 |            6.35 |            6.68 |           339   |                   0 |
+| direct_llm | 10_image_pull_backoff                         |  10 |         0 |        0   |          0     |           0.278 |            6.64 |            7.01 |           351   |                   0 |
+| direct_llm | 15_failed_readiness_probe                     |  10 |        10 |        1   |          0.722 |           1     |            5.3  |            5.66 |           299.5 |                   0 |
+| direct_llm | 176_network_policy_blocking_traffic_no_skills |  10 |         0 |        0   |          0     |           0.278 |            9.21 |           13.68 |           486   |                   0 |
+| direct_llm | 17_oom_kill                                   |  10 |         9 |        0.9 |          0.596 |           0.982 |            6.44 |            8.22 |           359   |                   0 |
+| direct_llm | 80_pvc_storage_class_mismatch                 |  10 |         0 |        0   |          0     |           0.278 |            7.37 |            8.19 |           396.5 |                   0 |

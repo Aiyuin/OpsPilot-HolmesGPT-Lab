@@ -1,0 +1,7 @@
+run_id,variant,scenario_id,category,repetition,model,env_config,outcome,correctness,duration_seconds,holmes_duration_seconds,llm_calls,tool_calls,total_tokens,prompt_tokens,completion_tokens,cached_tokens,cost,error_type,error_message,nodeid
+pilot-direct-20260916-153147,direct_llm,09_crashpod,configuration,1,qwen-plus,no_tools,passed,0,8.070894208001846,,1,0,339,77,262,,,,,direct::09_crashpod::1
+pilot-direct-20260916-153147,direct_llm,10_image_pull_backoff,image,1,qwen-plus,no_tools,passed,0,6.543637832997774,,1,0,360,79,281,,,,,direct::10_image_pull_backoff::1
+pilot-direct-20260916-153147,direct_llm,15_failed_readiness_probe,probe,1,qwen-plus,no_tools,passed,1,5.425809125001251,,1,0,300,77,223,,,,,direct::15_failed_readiness_probe::1
+pilot-direct-20260916-153147,direct_llm,17_oom_kill,resource,1,qwen-plus,no_tools,passed,1,8.093507124998723,,1,0,431,84,347,,,,,direct::17_oom_kill::1
+pilot-direct-20260916-153147,direct_llm,80_pvc_storage_class_mismatch,storage,1,qwen-plus,no_tools,passed,0,6.580580875001033,,1,0,361,81,280,,,,,direct::80_pvc_storage_class_mismatch::1
+pilot-direct-20260916-153147,direct_llm,176_network_policy_blocking_traffic_no_skills,network,1,qwen-plus,no_tools,passed,0,9.706010207999498,,1,0,492,85,407,,,,,direct::176_network_policy_blocking_traffic_no_skills::1
